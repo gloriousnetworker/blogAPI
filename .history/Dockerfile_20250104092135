@@ -1,5 +1,5 @@
 # Base PHP image with Apache
-FROM php:8.2-apache
+FROM php:8.4-apache
 RUN echo "Base image works correctly"
 
 # Set working directory

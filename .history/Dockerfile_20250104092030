@@ -1,6 +1,5 @@
 # Base PHP image with Apache
-FROM php:8.2-apache
-RUN echo "Base image works correctly"
+FROM php:8.11-apache
 
 # Set working directory
 WORKDIR /var/www/html
