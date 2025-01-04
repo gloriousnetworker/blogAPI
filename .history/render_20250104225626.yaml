@@ -1,0 +1,33 @@
+services:
+  - type: web
+    name: laravel-app
+    env: docker
+    dockerfilePath: Dockerfile
+    buildCommand: ""
+    startCommand: php artisan serve --host 0.0.0.0 --port 80
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_KEY
+        value: base64:AHwGpMH1t1Igm6GXlNmRWVto7WGjeLPzoeIsADyfGzc=
+      - key: APP_URL
+        value: https://blogapi-23wq.onrender.com
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        value: laravel-db.internal # Replace with your actual Render DB internal host
+      - key: DB_PORT
+        value: 5432
+      - key: DB_DATABASE
+        value: blog_api
+      - key: DB_USERNAME
+        value: postgres
+      - key: DB_PASSWORD
+        value: 08024983733Qq
+  - type: postgres
+    name: laravel-db
+    plan: standard
+    disk:
+      sizeGB: 10

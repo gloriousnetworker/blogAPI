@@ -1,0 +1,36 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    environment:
+      APP_ENV: local
+      APP_KEY: ${APP_KEY}
+      APP_DEBUG: "false"
+      APP_URL: https://blogapi-23wq.onrender.com/
+      DB_CONNECTION: pgsql
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
+
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

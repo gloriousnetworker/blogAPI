@@ -1,0 +1,41 @@
+# Base PHP image with Apache
+FROM php:8.2-apache
+
+# Set working directory
+WORKDIR /var/www/html
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    git \
+    unzip \
+    curl \
+    && docker-php-ext-install pdo pdo_pgsql
+
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Set Composer memory limit globally
+ENV COMPOSER_MEMORY_LIMIT=-1
+
+# Copy application files
+COPY . .
+
+# Install Laravel dependencies
+RUN composer install --optimize-autoloader
+
+# Set permissions
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Enable Apache mod_rewrite
+RUN a2enmod rewrite
+
+# Expose port 80
+EXPOSE 80
+
+# Set environment variable
+ENV APP_ENV=local
+
+# Start Apache
+CMD ["apache2-foreground"]
