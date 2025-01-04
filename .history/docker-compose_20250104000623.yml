@@ -6,6 +6,7 @@ services:
     ports:
       - "8080:80"
     environment:
+      
       APP_ENV: local
       APP_KEY: base64:AHwGpMH1t1Igm6GXlNmRWVto7WGjeLPzoeIsADyfGzc=
       APP_DEBUG: "true"
@@ -18,9 +19,6 @@ services:
       DB_PASSWORD: 08024983733Qq
     volumes:
       - .:/var/www/html
-    depends_on:
-      - db
-
   db:
     image: postgres:14
     environment:
@@ -29,8 +27,3 @@ services:
       POSTGRES_DB: blog_api
     ports:
       - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-volumes:
-  postgres_data:

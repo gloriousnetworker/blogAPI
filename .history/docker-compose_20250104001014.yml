@@ -16,11 +16,9 @@ services:
       DB_DATABASE: blog_api
       DB_USERNAME: postgres
       DB_PASSWORD: 08024983733Qq
+      COMPOSER_MEMORY_LIMIT: -1 # Add memory limit here
     volumes:
       - .:/var/www/html
-    depends_on:
-      - db
-
   db:
     image: postgres:14
     environment:
@@ -29,8 +27,3 @@ services:
       POSTGRES_DB: blog_api
     ports:
       - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-volumes:
-  postgres_data:
